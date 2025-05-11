@@ -40,11 +40,41 @@ npm run start:dev
 npm run start:prod
 ```
 
+The application will be available at `http://localhost:3000/v1`
+
 ## API Documentation
 
-The API documentation is available at `/v1/docs` when running the application.
+The Swagger documentation will be available at `http://localhost:3000/v1/docs`
 
-### Endpoints
+## 📦 Project Structure
+
+```
+product-service/
+├── src/
+|   ├── health/
+│   │   ├── health.controller.ts
+│   │   ├── prisma.health.ts
+│   │   └── health.module.ts
+│   ├── product/
+│   │   ├── dto/
+│   │   ├── http/
+│   │   ├── product.controller.ts
+│   │   ├── product.service.ts
+│   │   └── product.module.ts
+│   └── main.ts
+├── prisma/
+│   └── schema.prisma
+├── Dockerfile
+├── docker-compose.yml
+└── package.json
+```
+
+## 📚 API Endpoints
+
+### Health Check
+- **GET** `/health`
+- Returns the health status of the service and its dependencies
+- Checks database connectivity
 
 #### List Products
 - **GET** `/v1/product`
