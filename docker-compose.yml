@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: productservice
+    ports:
+      - '3001:3001'
+    environment:
+      - DATABASE_URL=postgresql://product-user:123@product-db:5432/product-db?schema=public
+    depends_on:
+      - db
+    networks:
+      - shared-network
+
+  db:
+    image: postgres:16-alpine
+    container_name: product-db
+    ports:
+      - '5434:5432'
+    environment:
+      - POSTGRES_USER=product-user
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=product-db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - shared-network
+volumes:
+  postgres_data:
+  
+networks:
+  shared-network:
+    external: true
