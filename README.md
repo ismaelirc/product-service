@@ -157,7 +157,7 @@ Common error codes:
 The project uses PostgreSQL as the database. Connection settings are:
 
 - **Host**: localhost
-- **Port**: 5432
+- **Port**: 5434
 - **Database**: product-db
 - **Username**: XXXX-user
 - **Password**: XXXX
@@ -186,7 +186,7 @@ pnpm install
 
 3. Run Prisma migrations
 ```bash
-pnpm prisma migrate deploy
+npx prisma migrate deploy
 ```
 
 4. Start the development server
