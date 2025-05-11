@@ -1,57 +1,57 @@
-# Serviço de Produtos
+# Product Service
 
-Um microsserviço NestJS para gerenciamento de produtos, com integração a um serviço de estabelecimentos.
+A NestJS microservice for managing products, with integration to an establishment service.
 
-## Descrição
+## Description
 
-Este serviço fornece endpoints para gerenciar produtos, incluindo criação, listagem e recuperação. Ele se integra com um serviço de estabelecimentos para validar associações de produtos.
+This service provides endpoints to manage products, including creation, listing, and retrieval. It integrates with an establishment service to validate product associations.
 
-## Pré-requisitos
+## Prerequisites
 
-- Node.js (v14 ou superior)
-- pnpm ou yarn
-- Banco de dados PostgreSQL
-- Docker (opcional)
+- Node.js (v14 or higher)
+- npm or yarn
+- PostgreSQL database
+- Docker (optional)
 
-## Instalação
+## Installation
 
 ```bash
-# Instalar dependências
-pnpm install
+# Install dependencies
+npm install
 
-# Configurar variáveis de ambiente
+# Set up environment variables
 cp .env.example .env
-# Edite o .env com sua configuração do banco de dados
+# Edit .env with your database configuration
 
-# Executar migrações do banco de dados
+# Run database migrations
 npx prisma migrate dev
 ```
 
-## Executando a aplicação
+## Running the app
 
 ```bash
-# Desenvolvimento
+# Development
 npm run start
 
-# Modo de observação
+# Watch mode
 npm run start:dev
 
-# Modo de produção
+# Production mode
 npm run start:prod
 ```
 
-## Documentação da API
+## API Documentation
 
-A documentação da API está disponível em `/v1/docs` quando a aplicação estiver em execução.
+The API documentation is available at `/v1/docs` when running the application.
 
 ### Endpoints
 
-#### Listar Produtos
+#### List Products
 - **GET** `/v1/product`
-- **Parâmetros de Consulta:**
-  - `page` (opcional): Número da página (padrão: 1)
-  - `limit` (opcional): Itens por página (padrão: 10)
-- **Resposta:**
+- **Query Parameters:**
+  - `page` (optional): Page number (default: 1)
+  - `limit` (optional): Items per page (default: 10)
+- **Response:**
   ```json
   {
     "data": [
@@ -72,9 +72,9 @@ A documentação da API está disponível em `/v1/docs` quando a aplicação est
   }
   ```
 
-#### Obter Produto por ID
+#### Get Product by ID
 - **GET** `/v1/product/:id`
-- **Resposta:**
+- **Response:**
   ```json
   {
     "id": "uuid",
@@ -86,9 +86,9 @@ A documentação da API está disponível em `/v1/docs` quando a aplicação est
   }
   ```
 
-#### Criar Produto
+#### Create Product
 - **POST** `/v1/product`
-- **Corpo da Requisição:**
+- **Body:**
   ```json
   {
     "name": "string",
@@ -98,11 +98,48 @@ A documentação da API está disponível em `/v1/docs` quando a aplicação est
     "establishment_id": "string"
   }
   ```
-- **Resposta:** Objeto do produto criado
+- **Response:** Created product object
+- **Status Codes:**
+  - 201: Product created successfully
+  - 400: Invalid request data
+  - 404: Establishment not found
 
-## Respostas de Erro
+#### Update Product
+- **PUT** `/v1/product/:id`
+- **Body:**
+  ```json
+  {
+    "name": "string",
+    "description": "string",
+    "price": number,
+    "available": boolean,
+    "establishment_id": "string"
+  }
+  ```
+- **Response:** Updated product object
+- **Status Codes:**
+  - 200: Product updated successfully
+  - 400: Invalid request data
+  - 404: Product or establishment not found
 
-A API utiliza códigos de status HTTP padrão e retorna respostas de erro no seguinte formato:
+#### Validate Products
+- **POST** `/v1/product/validate`
+- **Body:**
+  ```json
+  {
+    "ids": ["uuid1", "uuid2"]
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "valid": boolean
+  }
+  ```
+
+## Error Responses
+
+The API uses standard HTTP status codes and returns error responses in the following format:
 
 ```json
 {
@@ -112,16 +149,16 @@ A API utiliza códigos de status HTTP padrão e retorna respostas de erro no seg
 }
 ```
 
-Códigos de erro comuns:
-- 400: Requisição Inválida
-- 404: Não Encontrado
-- 500: Erro Interno do Servidor
+Common error codes:
+- 400: Bad Request
+- 404: Not Found
+- 500: Internal Server Error
 
-## Variáveis de Ambiente
+## Environment Variables
 
-- `PORT`: Porta da aplicação (padrão: 3001)
-- `DATABASE_URL`: String de conexão do PostgreSQL
+- `PORT`: Application port (default: 3001)
+- `DATABASE_URL`: PostgreSQL connection string
 
-## Licença
+## License
 
-[Licenciado sob MIT](LICENSE)
+[MIT licensed](LICENSE)
