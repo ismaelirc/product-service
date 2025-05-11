@@ -1,50 +1,35 @@
-# Product Service
+# Product Service API
 
-A NestJS microservice for managing products, with integration to an establishment service.
+REST API for products management, built with NestJS and PostgreSQL.
 
-## Description
+## 🚀 Technologies
 
-This service provides endpoints to manage products, including creation, listing, and retrieval. It integrates with an establishment service to validate product associations.
+- NestJS
+- PostgreSQL
+- Prisma ORM
+- Docker
+- Swagger (API Documentation)
 
-## Prerequisites
+## 📋 Prerequisites
 
-- Node.js (v14 or higher)
-- npm or yarn
-- PostgreSQL database
-- Docker (optional)
+- Docker
+- Docker Compose
 
-## Installation
+## 🔧 Installation and Execution
 
+1. Clone the repository
 ```bash
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your database configuration
-
-# Run database migrations
-npx prisma migrate dev
+git clone [repository-url]
+cd prodcut-service
 ```
 
-## Running the app
-
+2. Run the project with Docker Compose
 ```bash
-# Development
-npm run start
-
-# Watch mode
-npm run start:dev
-
-# Production mode
-npm run start:prod
+docker-compose up --build
 ```
 
-The application will be available at `http://localhost:3000/v1`
-
-## API Documentation
-
-The Swagger documentation will be available at `http://localhost:3000/v1/docs`
+The application will be available at `http://localhost:3001/v1`
+The Swagger documentation will be available at `http://localhost:3001/v1/docs`
 
 ## 📦 Project Structure
 
@@ -134,23 +119,6 @@ product-service/
   - 400: Invalid request data
   - 404: Establishment not found
 
-#### Update Product
-- **PUT** `/v1/product/:id`
-- **Body:**
-  ```json
-  {
-    "name": "string",
-    "description": "string",
-    "price": number,
-    "available": boolean,
-    "establishment_id": "string"
-  }
-  ```
-- **Response:** Updated product object
-- **Status Codes:**
-  - 200: Product updated successfully
-  - 400: Invalid request data
-  - 404: Product or establishment not found
 
 #### Validate Products
 - **POST** `/v1/product/validate`
@@ -184,11 +152,49 @@ Common error codes:
 - 404: Not Found
 - 500: Internal Server Error
 
-## Environment Variables
+## 🗄️ Database
 
-- `PORT`: Application port (default: 3001)
-- `DATABASE_URL`: PostgreSQL connection string
+The project uses PostgreSQL as the database. Connection settings are:
 
-## License
+- **Host**: localhost
+- **Port**: 5432
+- **Database**: product-db
+- **Username**: XXXX-user
+- **Password**: XXXX
 
-[MIT licensed](LICENSE)
+To access the database using DBeaver or another SQL client:
+1. Make sure the container is running
+2. Use the credentials above to connect
+
+## 🔍 API Documentation
+
+Complete API documentation is available through Swagger UI at:
+```
+http://localhost:3001/v1/docs
+```
+
+## 🛠️ Development
+
+For local development without Docker:
+
+1. Install dependencies
+```bash
+pnpm install
+```
+
+2. Configure the .env file with the necessary environment variables
+
+3. Run Prisma migrations
+```bash
+pnpm prisma migrate deploy
+```
+
+4. Start the development server
+```bash
+pnpm start:dev
+```
+
+## 📄 License
+
+This project is licensed under the CC BY-NC-ND 4.0 License.  
+Not for commercial use. See the LICENSE file for details.
